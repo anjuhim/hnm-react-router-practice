@@ -9,7 +9,7 @@ const ProductDetail = () => {
   const param = useParams();
   console.log('param', param);
   const getItem = async (id) => {
-    let url = `http://localhost:5000/products/${id}`;
+    let url = `https://my-json-server.typicode.com/anjuhim/hnm-react-router-practice/products/${id}`;
     let response = await fetch(url);
     let data = await response.json();
     setItem(data);
