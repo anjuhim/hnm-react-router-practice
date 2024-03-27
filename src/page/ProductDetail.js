@@ -36,7 +36,7 @@ const ProductDetail = () => {
             <Col>
               <Stack gap={2}>
                 <div>{item?.title}</div>
-                <div>₩{item?.price.toLocaleString('ko-KR')}</div>
+                <div>₩{item?.price}</div>
                 <div>{item?.choice ? 'concious choice' : ''}</div>
                 <div>
                   <FormSelect>
