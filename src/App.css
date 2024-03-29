@@ -1,43 +1,72 @@
-.login-button {
+.top-section {
   display: flex;
-  justify-content: flex-end;
+}
+
+.lnb-menu-bars {
+  margin: 5px;
+  display: none;
+}
+
+.login-button {
+  position: absolute;
+  right: 0;
+  display: flex;
   margin: 20px;
   cursor: pointer;
+}
+.login-button div {
+  margin-left: 3px;
+}
+.user {
+  cursor: default;
 }
 
 .nav-section {
   display: flex;
   justify-content: center;
+  margin: 35px 0;
 }
 
 .nav-section img {
   cursor: pointer;
 }
 
-.menu-area {
+.menu {
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.menu-area {
+  display: flex;
 }
 .menu-list {
+  display: flex;
   list-style-type: none;
-  margin: 0;
-  padding: 0;
   overflow: hidden;
+  margin: 0;
 }
 .menu-list li {
-  float: left;
-  display: block;
-  text-align: center;
-  padding: 20px 12px;
-  text-decoration: none;
+  padding: 10px;
 }
 
 .search_box {
-  float: right;
-  display: block;
-  text-align: center;
-  padding: 14px 0;
-  text-decoration: none;
+  position: absolute;
+  right: 0;
+  display: flex;
+}
+.search_box input {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid black;
+  padding-left: 30px;
+}
+
+.search_box .search_icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .product-card {
@@ -49,17 +78,44 @@
   transform: scale(1.1);
 }
 
-input[type='text'] {
-  border: none;
-  border-bottom: 2px solid red;
-  padding: 7px 10px;
-  font-size: 12px;
-}
-input[type='text']:focus {
-  border: 1px solid #fff;
-}
-
 img {
   border: 0;
   max-width: 100%;
+}
+
+.mgl15 {
+  margin-right: 15px;
+}
+
+@media screen and (max-width: 920px) {
+  .menu {
+    top: 0;
+    left: 0;
+  }
+  .menu-area {
+    float: left;
+    background-color: white;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    z-index: 1;
+  }
+  .menu-list {
+    flex-direction: column;
+    position: relative;
+    top: 30px;
+    padding-right: 10px;
+  }
+  .on {
+    display: flex;
+  }
+  .off {
+    display: none;
+  }
+  .lnb-menu-bars {
+    display: flex;
+    cursor: pointer;
+    z-index: 2;
+  }
 }

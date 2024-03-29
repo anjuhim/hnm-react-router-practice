@@ -4,7 +4,7 @@ import ProductAll from './page/ProductAll';
 import Login from './page/Login';
 import Navbar from './component/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PrivateRoute from './route/PrivateRoute';
 
 // 1. 전체 상품 페이지, 로그인, 상품상세페이지
@@ -20,15 +20,24 @@ import PrivateRoute from './route/PrivateRoute';
 
 function App() {
   const [authenticate, setAuthenticate] = useState(false); // true면 로그인
+  const [user, setUser] = useState('');
+
+  useEffect(() => {
+    if (!authenticate) {
+      setUser('');
+    }
+  }, [authenticate]);
 
   return (
     <div>
-      <Navbar />
+      <Navbar user={user} setAuthenticate={setAuthenticate} />
       <Routes>
         <Route path="/" element={<ProductAll />} />
         <Route
           path="/login"
-          element={<Login setAuthenticate={setAuthenticate} />}
+          element={
+            <Login setAuthenticate={setAuthenticate} setUser={setUser} />
+          }
         />
         <Route
           path="/product/:id"

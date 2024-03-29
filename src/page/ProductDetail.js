@@ -8,7 +8,6 @@ const ProductDetail = () => {
   const [item, setItem] = useState({});
   const [loading, setLoading] = useState(false);
   const param = useParams();
-  console.log('param', param);
   const getItem = async (id) => {
     let url = `https://my-json-server.typicode.com/anjuhim/hnm-react-router-practice/products/${id}`;
     let response = await fetch(url);
@@ -19,7 +18,6 @@ const ProductDetail = () => {
 
   useEffect(() => {
     setLoading(true);
-    console.log('param', param.id);
     getItem(param.id);
   }, []);
 

@@ -1,33 +1,61 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-const Login = ({ setAuthenticate }) => {
+const Login = ({ setAuthenticate, setUser }) => {
+  const [validated, setValidated] = useState(false);
   const navigate = useNavigate();
   const loginUser = (event) => {
-    event.preventDefault();
-    setAuthenticate(true);
-    navigate(`/`);
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    } else {
+      setUser(form.elements.userId.value);
+      setAuthenticate(true);
+      navigate(`/`);
+    }
+    setValidated(true);
   };
   return (
     <Container>
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
-          <Form onSubmit={(event) => loginUser(event)}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form noValidate validated={validated} onSubmit={loginUser}>
+            <Form.Group className="mb-3">
               <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
+              <Form.Control
+                required
+                id="userId"
+                type="email"
+                placeholder="Enter email"
+              />
+              <Form.Control.Feedback type="invalid">
+                Email을 입력해주세요.
+              </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Group className="mb-3">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control
+                required
+                id="password"
+                type="password"
+                placeholder="Password"
+              />
+              <Form.Control.Feedback type="invalid">
+                Password를 입력해주세요.
+              </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="Check me out" />
+            <Form.Group className="mb-3">
+              <Form.Check
+                required
+                id="check"
+                type="checkbox"
+                label="동의"
+                feedback="동의를 해주세요"
+                feedbackType="invalid"
+              />
             </Form.Group>
             <Button variant="danger" type="submit">
               Login
