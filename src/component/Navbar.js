@@ -12,6 +12,7 @@ import { authenticateAction } from '../redux/actions/authenticateAction';
 
 const Navbar = () => {
   const user = useSelector((state) => state.auth.id);
+  const authenticate = useSelector((state) => state.auth.authenticate);
   const [showMenu, setShowMenu] = useState('off');
   const menuOpen = () => {
     showMenu === 'off' ? setShowMenu('on') : setShowMenu('off');
@@ -31,7 +32,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const goToPath = (path) => {
     setShowMenu('off');
-    if (user && path === `/login`) {
+    if (authenticate && path === `/login`) {
       dispatch(authenticateAction.logout());
     }
     navigate(path);
@@ -56,7 +57,7 @@ const Navbar = () => {
         />
         <div className="login-button">
           <FontAwesomeIcon icon={faUser} />
-          {user ? (
+          {authenticate ? (
             <>
               <div className="mgl15">{user}님 환영합니다!</div>
               <div onClick={() => goToPath(`/login`)}>
