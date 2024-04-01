@@ -3,18 +3,19 @@ import ProductCard from './ProductCard';
 import { Col, Container, Row } from 'react-bootstrap';
 import { SpinnerCircular } from 'spinners-react';
 import { useSearchParams } from 'react-router-dom';
+import { productAction } from '../redux/actions/productAction';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ProductAll = () => {
-  const [productList, setProductList] = useState([]);
+  const productList = useSelector((state) => state.product.productList);
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useSearchParams();
-  const getProducts = async () => {
+  const dispatch = useDispatch();
+
+  const getProducts = () => {
     let searchQuery = query.get('q');
     let queryString = searchQuery ? `?q=${searchQuery}` : ``;
-    let url = `https://my-json-server.typicode.com/anjuhim/hnm-react-router-practice/products${queryString}`;
-    let response = await fetch(url);
-    let data = await response.json();
-    setProductList(data);
+    dispatch(productAction.getProducts(queryString));
     setLoading(false);
   };
 

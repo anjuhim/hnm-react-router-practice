@@ -7,8 +7,11 @@ import {
   faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { authenticateAction } from '../redux/actions/authenticateAction';
 
-const Navbar = ({ user, setAuthenticate }) => {
+const Navbar = () => {
+  const user = useSelector((state) => state.auth.id);
   const [showMenu, setShowMenu] = useState('off');
   const menuOpen = () => {
     showMenu === 'off' ? setShowMenu('on') : setShowMenu('off');
@@ -25,10 +28,11 @@ const Navbar = ({ user, setAuthenticate }) => {
   ];
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const goToPath = (path) => {
     setShowMenu('off');
     if (user && path === `/login`) {
-      setAuthenticate(false);
+      dispatch(authenticateAction.logout());
     }
     navigate(path);
   };

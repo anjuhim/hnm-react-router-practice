@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { authenticateAction } from '../redux/actions/authenticateAction';
 
-const Login = ({ setAuthenticate, setUser }) => {
+const Login = () => {
   const [validated, setValidated] = useState(false);
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const loginUser = (event) => {
     const form = event.currentTarget;
+    event.preventDefault();
     if (form.checkValidity() === false) {
-      event.preventDefault();
       event.stopPropagation();
     } else {
-      setUser(form.elements.userId.value);
-      setAuthenticate(true);
+      dispatch(authenticateAction.login(id, password));
       navigate(`/`);
     }
     setValidated(true);
@@ -29,6 +34,7 @@ const Login = ({ setAuthenticate, setUser }) => {
                 id="userId"
                 type="email"
                 placeholder="Enter email"
+                onChange={(event) => setId(event.target.value)}
               />
               <Form.Control.Feedback type="invalid">
                 Email을 입력해주세요.
@@ -42,6 +48,7 @@ const Login = ({ setAuthenticate, setUser }) => {
                 id="password"
                 type="password"
                 placeholder="Password"
+                onChange={(event) => setPassword(event.target.value)}
               />
               <Form.Control.Feedback type="invalid">
                 Password를 입력해주세요.

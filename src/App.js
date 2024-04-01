@@ -6,6 +6,7 @@ import Navbar from './component/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from 'react';
 import PrivateRoute from './route/PrivateRoute';
+import { useSelector } from 'react-redux';
 
 // 1. 전체 상품 페이지, 로그인, 상품상세페이지
 // 1-1. 네비게이션바
@@ -19,30 +20,13 @@ import PrivateRoute from './route/PrivateRoute';
 // 7. 상품을 검색할 수 있다.
 
 function App() {
-  const [authenticate, setAuthenticate] = useState(false); // true면 로그인
-  const [user, setUser] = useState('');
-
-  useEffect(() => {
-    if (!authenticate) {
-      setUser('');
-    }
-  }, [authenticate]);
-
   return (
     <div>
-      <Navbar user={user} setAuthenticate={setAuthenticate} />
+      <Navbar />
       <Routes>
         <Route path="/" element={<ProductAll />} />
-        <Route
-          path="/login"
-          element={
-            <Login setAuthenticate={setAuthenticate} setUser={setUser} />
-          }
-        />
-        <Route
-          path="/product/:id"
-          element={<PrivateRoute authenticate={authenticate} />}
-        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/product/:id" element={<PrivateRoute />} />
       </Routes>
     </div>
   );

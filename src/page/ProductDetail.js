@@ -3,16 +3,16 @@ import { Button, Col, Container, Row, Stack } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import FormSelect from 'react-bootstrap/FormSelect';
 import { SpinnerCircular } from 'spinners-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { productAction } from '../redux/actions/productAction';
 
 const ProductDetail = () => {
-  const [item, setItem] = useState({});
+  const item = useSelector((state) => state.product.productItem);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   const param = useParams();
   const getItem = async (id) => {
-    let url = `https://my-json-server.typicode.com/anjuhim/hnm-react-router-practice/products/${id}`;
-    let response = await fetch(url);
-    let data = await response.json();
-    setItem(data);
+    dispatch(productAction.getProductDetail(id));
     setLoading(false);
   };
 
